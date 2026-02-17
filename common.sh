@@ -37,6 +37,8 @@ nodejs_setup() {
     VALIDATE $? "enable nodejs 20"
     dnf install nodejs -y &>>$LOG_FILE
     VALIDATE $? "install nodejs"
+    npm install &>>$LOG_FILE
+    VALIDATE $? "Install dependencies"
 }
 
 java_setup() {
