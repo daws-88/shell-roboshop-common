@@ -98,7 +98,7 @@ VALIDATE $? "Enable catalogue"
 
 
 app_restart() {
-    ystemctl restart $app_name
+    systemctl restart $app_name
     VALIDATE $? "Restart $app_name"
 }
 
