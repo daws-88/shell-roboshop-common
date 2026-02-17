@@ -2,7 +2,7 @@
 souce ./common.sh
 check_root
 
-### RABBITMQ #####
+### RABBITMQ ####
 cp rabbitmq.repo /etc/yum.repos.d/rabbitmq.repo &>>$LOG_FILE
 VALIDATE $? "Copying mongo.repo"
 

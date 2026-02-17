@@ -2,7 +2,7 @@
 souce ./common.sh
 
 check_root
-###### MYSQL ######
+###### MYSQL ####
 dnf install mysql-server -y &>>$LOG_FILE
 VALIDATE $? "Install mysql"
 systemctl enable mysqld &>>$LOG_FILE
