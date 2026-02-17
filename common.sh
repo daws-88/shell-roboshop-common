@@ -45,7 +45,7 @@ java_setup() {
     mvn clean package &>>$LOG_FILE
     VALIDATE $? "Package into a .jar"
     mv target/shipping-1.0.jar shipping.jar  &>>$LOG_FILE
-    VALIDATE $? "Moved to shipping.jar"
+    VALIDATE $? "Rename artifact"
 }
 
 python_setup() {
@@ -70,36 +70,36 @@ app_setup() {
     id roboshop &>>$LOG_FILE
     if [ $? -ne 0 ]; then
         useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
-        VALIDATE $? "add user"
+        VALIDATE $? "Add user"
     else
         echo -e "User already exist...$Y SKIPPING $N"| tee -a $LOG_FILE
     fi
     mkdir -p /app
-    VALIDATE $? "create /app"
+    VALIDATE $? "Create directory"
     curl -o /tmp/$app_name.zip https://roboshop-artifacts.s3.amazonaws.com/$app_name-v3.zip &>>$LOG_FILE
-    VALIDATE $? "download code"
+    VALIDATE $? "Download code"
     cd /app
-    VALIDATE $? "move to /app"
+    VALIDATE $? "Move to /app"
     rm -rf /app/* $>>$LOG_FILE
-    VALIDATE $? "remove old code"
+    VALIDATE $? "Remove old code"
     unzip /tmp/$app_name.zip &>>LOG_FILE
-    VALIDATE $? "unzip the code"
+    VALIDATE $? "Unzip the code"
 }
 
 system_setup() { 
 cp $SCRIPT_DIR/$app_name.service /etc/systemd/system/$app_name.service &>>$LOG_FILE
-VALIDATE $? "created systemctl service"
+VALIDATE $? "Created systemctl service"
 systemctl daemon-reload &>>$LOG_FILE
-VALIDATE $? "reload files"
+VALIDATE $? "Reload files"
 systemctl enable $app_name &>>LOG_FILE
-VALIDATE $? "enable catalogue"
+VALIDATE $? "Enable catalogue"
 }
 
 
 
 app_restart() {
     ystemctl restart $app_name
-    VALIDATE $? "restart $app_name"
+    VALIDATE $? "Restart $app_name"
 }
 
 print_time() {
