@@ -1,4 +1,4 @@
-
+### this is common  #####
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
@@ -14,7 +14,7 @@ LOG_FILE="$LOG_FOLDER/$SCRIPT_NAME.log"
 mkdir -p $LOG_FOLDER
 echo "Script strated at $(date)" | tee -a $LOG_FILE
 
-check_root(){
+check_root() {
     if [ $USERID -ne 0 ]; then
         echo "ERROR:: Please run this script as root privelliage"
         exit 1
@@ -53,6 +53,17 @@ python_setup() {
     VALIDATE $? "Installing python"
     pip3 install -r requirements.txt &>>$LOG_FILE
     VALIDATE $? "Install dependencies"
+}
+
+golang_setup() {
+    dnf install golang -y &>>$LOG_FILE
+    VALIDATE $? "Installing golang"
+    go mod init dispatch &>>$LOG_FILE
+    VALIDATE $? "Intalizing"
+    go get &>>$LOG_FILE
+    VALIDATE $? "Install dependencies"
+    go build &>>$LOG_FILE
+    VALIDATE $? "package "
 }
 
 app_setup() {
