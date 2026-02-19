@@ -26,16 +26,16 @@ VALIDATE() {
 }
 
 dnf module disable nginx -y &>>$LOG_FILE
-VALIDATE $? "Disable nginx"
+VALIDATE $? "Disable Nginx"
 
 dnf module enable nginx:1.24 -y &>>$LOG_FILE
-VALIDATE $? "enable nginx"
+VALIDATE $? "enable Nginx"
 
 dnf install nginx -y &>>$LOG_FILE
-VALIDATE $? "install nginx"
+VALIDATE $? "install Nginx"
 
 systemctl enable nginx &>>$LOG_FILE
-VALIDATE $? "enable nginx"
+VALIDATE $? "enable Nginx"
 
 rm -rf /usr/share/nginx/html/* &>>$LOG_FILE
 VALIDATE $? "remove default content"
